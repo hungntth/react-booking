@@ -1,7 +1,6 @@
-import { faCircle, faCircleArrowLeft, faCircleArrowRight, faCircleXmark, faLocation } from '@fortawesome/free-solid-svg-icons'
+import { faCircleArrowLeft, faCircleArrowRight, faCircleXmark, faLocation } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React from 'react'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import Footer from '../../components/footer/Footer'
 import Header from '../../components/header/Header'
 import MailList from '../../components/mailList/MailList'
@@ -40,11 +39,18 @@ const Hotels = () => {
         console.log('close')
         setOpen(!open)
     }
-    const changeSlide =() => {
+    const changeSlideRight =() => {
         if(slideNumber+1 >= photos.length){
             return setSlideNumber(0);
         }else{
             return setSlideNumber(slideNumber+1)
+        }
+    }
+    const changeSlideLeft =() => {
+        if(slideNumber === 0){
+            return setSlideNumber(photos.length - 1);
+        }else{
+            return setSlideNumber(slideNumber - 1)
         }
     }
     return(
@@ -54,11 +60,11 @@ const Hotels = () => {
             <div className="hotelContainer">
                 {open && <div className="slider">
                         <FontAwesomeIcon icon={faCircleXmark} onClick={onClose} className="close" />
-                        <FontAwesomeIcon icon={faCircleArrowLeft} className = "arrow"/>
+                        <FontAwesomeIcon icon={faCircleArrowLeft} onClick={() => changeSlideLeft()} className = "arrow"/>
                         <div className="slideWrapper">
                             <img src={photos[slideNumber].src} alt="" className="sliderImg" />
                         </div>
-                        <FontAwesomeIcon icon={faCircleArrowRight} onClick={() => changeSlide()} className = "arrow" />
+                        <FontAwesomeIcon icon={faCircleArrowRight} onClick={() => changeSlideRight()} className = "arrow" />
                 </div>}
                 <div className="hotelWrapper">
                     <button className="bookNow">Reserve or Book Now!</button>
